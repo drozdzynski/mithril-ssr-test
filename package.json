@@ -1,0 +1,16 @@
+{
+  "name": "mithril-test",
+  "packageManager": "yarn@3.6.0",
+  "scripts": {
+    "dev": "esbuild src/index.ts --bundle --outdir=./dist --allow-overwrite --watch"
+  },
+  "dependencies": {
+    "mithril": "^2.2.2"
+  },
+  "devDependencies": {
+    "@types/mithril": "^2.0.12",
+    "esbuild": "^0.18.3",
+    "mithril-node-render": "^3.0.2",
+    "typescript": "^5.1.3"
+  }
+}
