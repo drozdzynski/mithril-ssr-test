@@ -2,7 +2,8 @@
   "name": "mithril-test",
   "packageManager": "yarn@3.6.0",
   "scripts": {
-    "dev": "esbuild src/index.ts --bundle --outdir=./dist --allow-overwrite --watch"
+    "dev": "esbuild src/index.ts --bundle --outdir=./dist --allow-overwrite --watch",
+    "build": "esbuild src/index.ts --bundle --outdir=./dist --allow-overwrite"
   },
   "dependencies": {
     "mithril": "^2.2.2"
