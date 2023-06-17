@@ -2,6 +2,8 @@ import toHTML from 'mithril-node-render'
 import component from './src/component'
 import m from 'mithril'
 import baseView from './src/baseView';
+import { SheetContextProvider } from './src/SheetContext';
+import { createStyleSheet } from '../../teiler/packages/core/src/index'
 
 export default {
   async fetch(req) {
@@ -10,9 +12,12 @@ export default {
       return new Response(Bun.file("./dist/index.js"))
     }
 
-    const rootNode = m(baseView(component));
+    const sheet = createStyleSheet();
+    const rootNode = m(SheetContextProvider({ sheet }), m(baseView(component)));
+    const html = await toHTML(rootNode);
+    console.log('sheet', sheet.dump())
 
-    return new Response(await toHTML(rootNode), {
+    return new Response(html, {
       headers: {
         "Content-Type": "text/html",
       },

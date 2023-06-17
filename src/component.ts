@@ -1,9 +1,17 @@
 import m from "mithril";
 import store from "./store";
+import hire from "./teiler";
+import { useSheetContext } from "./SheetContext";
+
+const teiler = hire({});
+
+const test = teiler.component<{test: number}>`
+  color: ${({test}) => test % 2 === 0 ? 'red' : 'blue'};
+`
 
 const ComponentWithState: m.ClosureComponent<{test: string}> = vnode => {
-  var count = store(1);
-  var double = count.value.map(value => value*2)
+  const count = store(1);
+  const double = count.value.map(value => value*2)
 
   return {
     oninit: (vnode) => {
@@ -12,6 +20,19 @@ const ComponentWithState: m.ClosureComponent<{test: string}> = vnode => {
     view: (vnode) => {
       return m(
         "div",
+        m(test, 
+          {
+            test: count.value()
+          },
+          [
+          m(
+            "p", 
+            {
+              onclick: () => console.log('click', teiler.sheet.dump()),
+            }, 
+            "abc"
+          )
+        ]),
         m("p", "Test: " + count.value() + " | " + double()),
         m(
           "button",
@@ -21,10 +42,11 @@ const ComponentWithState: m.ClosureComponent<{test: string}> = vnode => {
             }
           },
           "Increment count"
-        )
+        ),
       );
     }
   };
 }
 
 export default ComponentWithState
+export { teiler }

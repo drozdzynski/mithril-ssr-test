@@ -1,7 +1,6 @@
 import m from 'mithril'
 
 const baseView = (component) => {
-  console.log('component', component())
   return {
     view: (vnode) => [
       m('!doctype[html]'),

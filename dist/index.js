@@ -8,11 +8,11 @@
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
-  var __copyProps = (to, from, except, desc) => {
-    if (from && typeof from === "object" || typeof from === "function") {
-      for (let key of __getOwnPropNames(from))
+  var __copyProps = (to, from2, except, desc) => {
+    if (from2 && typeof from2 === "object" || typeof from2 === "function") {
+      for (let key of __getOwnPropNames(from2))
         if (!__hasOwnProp.call(to, key) && key !== except)
-          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+          __defProp(to, key, { get: () => from2[key], enumerable: !(desc = __getOwnPropDesc(from2, key)) || desc.enumerable });
     }
     return to;
   };
@@ -32,14 +32,14 @@
       function Vnode(tag, key, attrs, children, text, dom) {
         return { tag, key, attrs, children, text, dom, domSize: void 0, state: void 0, events: void 0, instance: void 0 };
       }
-      Vnode.normalize = function(node) {
-        if (Array.isArray(node))
-          return Vnode("[", void 0, void 0, Vnode.normalizeChildren(node), void 0, void 0);
-        if (node == null || typeof node === "boolean")
+      Vnode.normalize = function(node2) {
+        if (Array.isArray(node2))
+          return Vnode("[", void 0, void 0, Vnode.normalizeChildren(node2), void 0, void 0);
+        if (node2 == null || typeof node2 === "boolean")
           return null;
-        if (typeof node === "object")
-          return node;
-        return Vnode("#", void 0, void 0, String(node), void 0, void 0);
+        if (typeof node2 === "object")
+          return node2;
+        return Vnode("#", void 0, void 0, String(node2), void 0, void 0);
       };
       Vnode.normalizeChildren = function(input) {
         var children = [];
@@ -113,23 +113,23 @@
         return true;
       }
       function compileSelector(selector) {
-        var match, tag = "div", classes = [], attrs = {};
-        while (match = selectorParser.exec(selector)) {
-          var type = match[1], value = match[2];
+        var match2, tag = "div", classes = [], attrs = {};
+        while (match2 = selectorParser.exec(selector)) {
+          var type = match2[1], value = match2[2];
           if (type === "" && value !== "")
             tag = value;
           else if (type === "#")
             attrs.id = value;
           else if (type === ".")
             classes.push(value);
-          else if (match[3][0] === "[") {
-            var attrValue = match[6];
+          else if (match2[3][0] === "[") {
+            var attrValue = match2[6];
             if (attrValue)
               attrValue = attrValue.replace(/\\(["'])/g, "$1").replace(/\\\\/g, "\\");
-            if (match[4] === "class")
+            if (match2[4] === "class")
               classes.push(attrValue);
             else
-              attrs[match[4]] = attrValue === "" ? attrValue : attrValue || true;
+              attrs[match2[4]] = attrValue === "" ? attrValue : attrValue || true;
           }
         }
         if (classes.length > 0)
@@ -281,10 +281,10 @@
       };
       PromisePolyfill.prototype.then = function(onFulfilled, onRejection) {
         var self = this, instance = self._instance;
-        function handle(callback, list, next, state) {
+        function handle(callback, list, next2, state) {
           list.push(function(value) {
             if (typeof callback !== "function")
-              next(value);
+              next2(value);
             else
               try {
                 resolveNext(callback(value));
@@ -452,7 +452,7 @@
                 createElement(parent, vnode, hooks, ns, nextSibling);
             }
           } else
-            createComponent(parent, vnode, hooks, ns, nextSibling);
+            createComponent2(parent, vnode, hooks, ns, nextSibling);
         }
         function createText(parent, vnode, nextSibling) {
           vnode.dom = $doc.createTextNode(vnode.children);
@@ -460,8 +460,8 @@
         }
         var possibleParents = { caption: "table", thead: "table", tbody: "table", tfoot: "table", tr: "tbody", th: "tr", td: "tr", colgroup: "table", col: "colgroup" };
         function createHTML(parent, vnode, ns, nextSibling) {
-          var match = vnode.children.match(/^\s*?<(\w+)/im) || [];
-          var temp = $doc.createElement(possibleParents[match[1]] || "div");
+          var match2 = vnode.children.match(/^\s*?<(\w+)/im) || [];
+          var temp = $doc.createElement(possibleParents[match2[1]] || "div");
           if (ns === "http://www.w3.org/2000/svg") {
             temp.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg">' + vnode.children + "</svg>";
             temp = temp.firstChild;
@@ -533,7 +533,7 @@
             throw Error("A view cannot return the vnode it received as argument");
           sentinel.$$reentrantLock$$ = null;
         }
-        function createComponent(parent, vnode, hooks, ns, nextSibling) {
+        function createComponent2(parent, vnode, hooks, ns, nextSibling) {
           initComponent(vnode, hooks);
           if (vnode.instance != null) {
             createNode(parent, vnode.instance, hooks, ns, nextSibling);
@@ -938,24 +938,24 @@
             removeChild(parent, vnode);
           } else {
             if (stateResult != null) {
-              var next = function() {
+              var next2 = function() {
                 if (mask & 1) {
                   mask &= 2;
                   if (!mask)
                     reallyRemove();
                 }
               };
-              stateResult.then(next, next);
+              stateResult.then(next2, next2);
             }
             if (attrsResult != null) {
-              var next = function() {
+              var next2 = function() {
                 if (mask & 2) {
                   mask &= 1;
                   if (!mask)
                     reallyRemove();
                 }
               };
-              attrsResult.then(next, next);
+              attrsResult.then(next2, next2);
             }
           }
           function reallyRemove() {
@@ -1373,7 +1373,7 @@
     ".yarn/cache/mithril-npm-2.2.2-f7d47858b0-d056098d62.zip/node_modules/mithril/pathname/build.js"(exports, module) {
       "use strict";
       var buildQueryString = require_build();
-      var assign = require_assign();
+      var assign2 = require_assign();
       module.exports = function(template, params) {
         if (/:([^\/\.-]+)(\.{3})?:/.test(template)) {
           throw new SyntaxError("Template parameter names must be separated by either a '/', '-', or '.'.");
@@ -1386,11 +1386,11 @@
         var pathEnd = queryIndex < 0 ? queryEnd : queryIndex;
         var path = template.slice(0, pathEnd);
         var query = {};
-        assign(query, params);
-        var resolved = path.replace(/:([^\/\.-]+)(\.{3})?/g, function(m4, key, variadic) {
+        assign2(query, params);
+        var resolved = path.replace(/:([^\/\.-]+)(\.{3})?/g, function(m7, key, variadic) {
           delete query[key];
           if (params[key] == null)
-            return m4;
+            return m7;
           return variadic ? params[key] : encodeURIComponent(String(params[key]));
         });
         var newQueryIndex = resolved.indexOf("?");
@@ -1460,13 +1460,13 @@
               promise2.constructor = PromiseProxy;
               promise2.then = function() {
                 count++;
-                var next = then.apply(promise2, arguments);
-                next.then(complete, function(e) {
+                var next2 = then.apply(promise2, arguments);
+                next2.then(complete, function(e) {
                   complete();
                   if (count === 0)
                     throw e;
                 });
-                return wrap(next);
+                return wrap(next2);
               };
               return promise2;
             }
@@ -1717,9 +1717,9 @@
           // don't also accidentally escape `-` and make it harder to detect it to
           // ban it from template parameters.
           /:([^\/.-]+)(\.{3}|\.(?!\.)|-)?|[\\^$*+.()|\[\]{}]/g,
-          function(m4, key, extra) {
+          function(m7, key, extra) {
             if (key == null)
-              return "\\" + m4;
+              return "\\" + m7;
             keys.push({ k: key, r: extra === "..." });
             if (extra === "...")
               return "(.*)";
@@ -1778,12 +1778,12 @@
     ".yarn/cache/mithril-npm-2.2.2-f7d47858b0-d056098d62.zip/node_modules/mithril/api/router.js"(exports, module) {
       "use strict";
       var Vnode = require_vnode();
-      var m4 = require_hyperscript();
+      var m7 = require_hyperscript();
       var Promise2 = require_promise();
       var buildPathname = require_build2();
       var parsePathname = require_parse2();
       var compileTemplate = require_compileTemplate();
-      var assign = require_assign();
+      var assign2 = require_assign();
       var censor = require_censor();
       var sentinel = {};
       function decodeURIComponentSave(component) {
@@ -1822,18 +1822,18 @@
         var SKIP = route.SKIP = {};
         function resolveRoute() {
           scheduled = false;
-          var prefix = $window.location.hash;
+          var prefix2 = $window.location.hash;
           if (route.prefix[0] !== "#") {
-            prefix = $window.location.search + prefix;
+            prefix2 = $window.location.search + prefix2;
             if (route.prefix[0] !== "?") {
-              prefix = $window.location.pathname + prefix;
-              if (prefix[0] !== "/")
-                prefix = "/" + prefix;
+              prefix2 = $window.location.pathname + prefix2;
+              if (prefix2[0] !== "/")
+                prefix2 = "/" + prefix2;
             }
           }
-          var path = prefix.concat().replace(/(?:%[a-f89][a-f0-9])+/gim, decodeURIComponentSave).slice(route.prefix.length);
+          var path = prefix2.concat().replace(/(?:%[a-f89][a-f0-9])+/gim, decodeURIComponentSave).slice(route.prefix.length);
           var data = parsePathname(path);
-          assign(data.params, $window.history.state);
+          assign2(data.params, $window.history.state);
           function reject(e) {
             console.error(e);
             setPath(fallbackRoute, null, { replace: true });
@@ -1945,7 +1945,7 @@
         route.prefix = "#!";
         route.Link = {
           view: function(vnode) {
-            var child = m4(
+            var child = m7(
               vnode.attrs.selector || "a",
               censor(vnode.attrs, ["options", "params", "selector", "onclick"]),
               vnode.children
@@ -2007,27 +2007,27 @@
       var hyperscript = require_hyperscript2();
       var request = require_request2();
       var mountRedraw = require_mount_redraw2();
-      var m4 = function m5() {
+      var m7 = function m8() {
         return hyperscript.apply(this, arguments);
       };
-      m4.m = hyperscript;
-      m4.trust = hyperscript.trust;
-      m4.fragment = hyperscript.fragment;
-      m4.Fragment = "[";
-      m4.mount = mountRedraw.mount;
-      m4.route = require_route();
-      m4.render = require_render2();
-      m4.redraw = mountRedraw.redraw;
-      m4.request = request.request;
-      m4.jsonp = request.jsonp;
-      m4.parseQueryString = require_parse();
-      m4.buildQueryString = require_build();
-      m4.parsePathname = require_parse2();
-      m4.buildPathname = require_build2();
-      m4.vnode = require_vnode();
-      m4.PromisePolyfill = require_polyfill();
-      m4.censor = require_censor();
-      module.exports = m4;
+      m7.m = hyperscript;
+      m7.trust = hyperscript.trust;
+      m7.fragment = hyperscript.fragment;
+      m7.Fragment = "[";
+      m7.mount = mountRedraw.mount;
+      m7.route = require_route();
+      m7.render = require_render2();
+      m7.redraw = mountRedraw.redraw;
+      m7.request = request.request;
+      m7.jsonp = request.jsonp;
+      m7.parseQueryString = require_parse();
+      m7.buildQueryString = require_build();
+      m7.parsePathname = require_parse2();
+      m7.buildPathname = require_build2();
+      m7.vnode = require_vnode();
+      m7.PromisePolyfill = require_polyfill();
+      m7.censor = require_censor();
+      module.exports = m7;
     }
   });
 
@@ -2040,7 +2040,7 @@
         Stream.lift = lift;
         Stream.scan = scan;
         Stream.merge = merge;
-        Stream.combine = combine;
+        Stream.combine = combine2;
         Stream.scanMerge = scanMerge;
         Stream["fantasy-land/of"] = Stream;
         var warnedHalt = false;
@@ -2108,7 +2108,7 @@
           };
           stream2["fantasy-land/map"] = stream2.map;
           stream2["fantasy-land/ap"] = function(x) {
-            return combine(function(s1, s2) {
+            return combine2(function(s1, s2) {
               return s1()(s2());
             }, [x, stream2]);
           };
@@ -2126,7 +2126,7 @@
           });
           return stream2;
         }
-        function combine(fn, streams) {
+        function combine2(fn, streams) {
           var ready = streams.every(function(s) {
             if (s.constructor !== Stream)
               throw new Error("Ensure that each item passed to stream.combine/stream.merge/lift is a stream.");
@@ -2159,7 +2159,7 @@
           return stream2;
         }
         function merge(streams) {
-          return combine(function() {
+          return combine2(function() {
             return streams.map(function(s) {
               return s();
             });
@@ -2167,10 +2167,10 @@
         }
         function scan(fn, acc, origin) {
           var stream2 = origin.map(function(v) {
-            var next = fn(acc, v);
-            if (next !== Stream.SKIP)
-              acc = next;
-            return next;
+            var next2 = fn(acc, v);
+            if (next2 !== Stream.SKIP)
+              acc = next2;
+            return next2;
           });
           stream2(acc);
           return stream2;
@@ -2179,7 +2179,7 @@
           var streams = tuples.map(function(tuple) {
             return tuple[0];
           });
-          var stream2 = combine(function() {
+          var stream2 = combine2(function() {
             var changed = arguments[arguments.length - 1];
             streams.forEach(function(stream3, i) {
               if (changed.indexOf(stream3) > -1)
@@ -2219,10 +2219,10 @@
   });
 
   // src/index.ts
-  var import_mithril3 = __toESM(require_mithril());
+  var import_mithril6 = __toESM(require_mithril());
 
   // src/component.ts
-  var import_mithril2 = __toESM(require_mithril());
+  var import_mithril5 = __toESM(require_mithril());
 
   // src/store.ts
   var import_mithril = __toESM(require_mithril());
@@ -2244,19 +2244,778 @@
   };
   var store_default = declaration;
 
+  // src/teiler.ts
+  var import_mithril4 = __toESM(require_mithril());
+
+  // src/SheetContext.ts
+  var import_mithril3 = __toESM(require_mithril());
+
+  // src/createContext.ts
+  var import_mithril2 = __toESM(require_mithril());
+  var useContext = (context) => context.state();
+  function createContext(defaultValue) {
+    let providedContext = defaultValue;
+    const state = () => providedContext;
+    const Provider = () => {
+      return {
+        view: (vnode) => {
+          providedContext = vnode.attrs;
+          return [
+            vnode.children,
+            (0, import_mithril2.default)({
+              view: () => {
+              }
+            })
+          ];
+        }
+      };
+    };
+    return {
+      state,
+      Provider
+    };
+  }
+
+  // ../../teiler/node_modules/stylis/src/Enum.js
+  var MS = "-ms-";
+  var MOZ = "-moz-";
+  var WEBKIT = "-webkit-";
+  var COMMENT = "comm";
+  var RULESET = "rule";
+  var DECLARATION = "decl";
+  var IMPORT = "@import";
+  var KEYFRAMES = "@keyframes";
+  var LAYER = "@layer";
+
+  // ../../teiler/node_modules/stylis/src/Utility.js
+  var abs = Math.abs;
+  var from = String.fromCharCode;
+  var assign = Object.assign;
+  function hash(value, length2) {
+    return charat(value, 0) ^ 45 ? (((length2 << 2 ^ charat(value, 0)) << 2 ^ charat(value, 1)) << 2 ^ charat(value, 2)) << 2 ^ charat(value, 3) : 0;
+  }
+  function trim(value) {
+    return value.trim();
+  }
+  function match(value, pattern) {
+    return (value = pattern.exec(value)) ? value[0] : value;
+  }
+  function replace(value, pattern, replacement) {
+    return value.replace(pattern, replacement);
+  }
+  function indexof(value, search) {
+    return value.indexOf(search);
+  }
+  function charat(value, index) {
+    return value.charCodeAt(index) | 0;
+  }
+  function substr(value, begin, end) {
+    return value.slice(begin, end);
+  }
+  function strlen(value) {
+    return value.length;
+  }
+  function sizeof(value) {
+    return value.length;
+  }
+  function append(value, array) {
+    return array.push(value), value;
+  }
+  function combine(array, callback) {
+    return array.map(callback).join("");
+  }
+
+  // ../../teiler/node_modules/stylis/src/Tokenizer.js
+  var line = 1;
+  var column = 1;
+  var length = 0;
+  var position = 0;
+  var character = 0;
+  var characters = "";
+  function node(value, root, parent, type, props, children, length2) {
+    return { value, root, parent, type, props, children, line, column, length: length2, return: "" };
+  }
+  function copy(root, props) {
+    return assign(node("", null, null, "", null, null, 0), root, { length: -root.length }, props);
+  }
+  function char() {
+    return character;
+  }
+  function prev() {
+    character = position > 0 ? charat(characters, --position) : 0;
+    if (column--, character === 10)
+      column = 1, line--;
+    return character;
+  }
+  function next() {
+    character = position < length ? charat(characters, position++) : 0;
+    if (column++, character === 10)
+      column = 1, line++;
+    return character;
+  }
+  function peek() {
+    return charat(characters, position);
+  }
+  function caret() {
+    return position;
+  }
+  function slice(begin, end) {
+    return substr(characters, begin, end);
+  }
+  function token(type) {
+    switch (type) {
+      case 0:
+      case 9:
+      case 10:
+      case 13:
+      case 32:
+        return 5;
+      case 33:
+      case 43:
+      case 44:
+      case 47:
+      case 62:
+      case 64:
+      case 126:
+      case 59:
+      case 123:
+      case 125:
+        return 4;
+      case 58:
+        return 3;
+      case 34:
+      case 39:
+      case 40:
+      case 91:
+        return 2;
+      case 41:
+      case 93:
+        return 1;
+    }
+    return 0;
+  }
+  function alloc(value) {
+    return line = column = 1, length = strlen(characters = value), position = 0, [];
+  }
+  function dealloc(value) {
+    return characters = "", value;
+  }
+  function delimit(type) {
+    return trim(slice(position - 1, delimiter(type === 91 ? type + 2 : type === 40 ? type + 1 : type)));
+  }
+  function whitespace(type) {
+    while (character = peek())
+      if (character < 33)
+        next();
+      else
+        break;
+    return token(type) > 2 || token(character) > 3 ? "" : " ";
+  }
+  function escaping(index, count) {
+    while (--count && next())
+      if (character < 48 || character > 102 || character > 57 && character < 65 || character > 70 && character < 97)
+        break;
+    return slice(index, caret() + (count < 6 && peek() == 32 && next() == 32));
+  }
+  function delimiter(type) {
+    while (next())
+      switch (character) {
+        case type:
+          return position;
+        case 34:
+        case 39:
+          if (type !== 34 && type !== 39)
+            delimiter(character);
+          break;
+        case 40:
+          if (type === 41)
+            delimiter(type);
+          break;
+        case 92:
+          next();
+          break;
+      }
+    return position;
+  }
+  function commenter(type, index) {
+    while (next())
+      if (type + character === 47 + 10)
+        break;
+      else if (type + character === 42 + 42 && peek() === 47)
+        break;
+    return "/*" + slice(index, position - 1) + "*" + from(type === 47 ? type : next());
+  }
+  function identifier(index) {
+    while (!token(peek()))
+      next();
+    return slice(index, position);
+  }
+
+  // ../../teiler/node_modules/stylis/src/Parser.js
+  function compile(value) {
+    return dealloc(parse("", null, null, null, [""], value = alloc(value), 0, [0], value));
+  }
+  function parse(value, root, parent, rule, rules, rulesets, pseudo, points, declarations) {
+    var index = 0;
+    var offset = 0;
+    var length2 = pseudo;
+    var atrule = 0;
+    var property = 0;
+    var previous = 0;
+    var variable = 1;
+    var scanning = 1;
+    var ampersand = 1;
+    var character2 = 0;
+    var type = "";
+    var props = rules;
+    var children = rulesets;
+    var reference = rule;
+    var characters2 = type;
+    while (scanning)
+      switch (previous = character2, character2 = next()) {
+        case 40:
+          if (previous != 108 && charat(characters2, length2 - 1) == 58) {
+            if (indexof(characters2 += replace(delimit(character2), "&", "&\f"), "&\f") != -1)
+              ampersand = -1;
+            break;
+          }
+        case 34:
+        case 39:
+        case 91:
+          characters2 += delimit(character2);
+          break;
+        case 9:
+        case 10:
+        case 13:
+        case 32:
+          characters2 += whitespace(previous);
+          break;
+        case 92:
+          characters2 += escaping(caret() - 1, 7);
+          continue;
+        case 47:
+          switch (peek()) {
+            case 42:
+            case 47:
+              append(comment(commenter(next(), caret()), root, parent), declarations);
+              break;
+            default:
+              characters2 += "/";
+          }
+          break;
+        case 123 * variable:
+          points[index++] = strlen(characters2) * ampersand;
+        case 125 * variable:
+        case 59:
+        case 0:
+          switch (character2) {
+            case 0:
+            case 125:
+              scanning = 0;
+            case 59 + offset:
+              if (ampersand == -1)
+                characters2 = replace(characters2, /\f/g, "");
+              if (property > 0 && strlen(characters2) - length2)
+                append(property > 32 ? declaration2(characters2 + ";", rule, parent, length2 - 1) : declaration2(replace(characters2, " ", "") + ";", rule, parent, length2 - 2), declarations);
+              break;
+            case 59:
+              characters2 += ";";
+            default:
+              append(reference = ruleset(characters2, root, parent, index, offset, rules, points, type, props = [], children = [], length2), rulesets);
+              if (character2 === 123)
+                if (offset === 0)
+                  parse(characters2, root, reference, reference, props, rulesets, length2, points, children);
+                else
+                  switch (atrule === 99 && charat(characters2, 3) === 110 ? 100 : atrule) {
+                    case 100:
+                    case 108:
+                    case 109:
+                    case 115:
+                      parse(value, reference, reference, rule && append(ruleset(value, reference, reference, 0, 0, rules, points, type, rules, props = [], length2), children), rules, children, length2, points, rule ? props : children);
+                      break;
+                    default:
+                      parse(characters2, reference, reference, reference, [""], children, 0, points, children);
+                  }
+          }
+          index = offset = property = 0, variable = ampersand = 1, type = characters2 = "", length2 = pseudo;
+          break;
+        case 58:
+          length2 = 1 + strlen(characters2), property = previous;
+        default:
+          if (variable < 1) {
+            if (character2 == 123)
+              --variable;
+            else if (character2 == 125 && variable++ == 0 && prev() == 125)
+              continue;
+          }
+          switch (characters2 += from(character2), character2 * variable) {
+            case 38:
+              ampersand = offset > 0 ? 1 : (characters2 += "\f", -1);
+              break;
+            case 44:
+              points[index++] = (strlen(characters2) - 1) * ampersand, ampersand = 1;
+              break;
+            case 64:
+              if (peek() === 45)
+                characters2 += delimit(next());
+              atrule = peek(), offset = length2 = strlen(type = characters2 += identifier(caret())), character2++;
+              break;
+            case 45:
+              if (previous === 45 && strlen(characters2) == 2)
+                variable = 0;
+          }
+      }
+    return rulesets;
+  }
+  function ruleset(value, root, parent, index, offset, rules, points, type, props, children, length2) {
+    var post = offset - 1;
+    var rule = offset === 0 ? rules : [""];
+    var size = sizeof(rule);
+    for (var i = 0, j = 0, k = 0; i < index; ++i)
+      for (var x = 0, y = substr(value, post + 1, post = abs(j = points[i])), z = value; x < size; ++x)
+        if (z = trim(j > 0 ? rule[x] + " " + y : replace(y, /&\f/g, rule[x])))
+          props[k++] = z;
+    return node(value, root, parent, offset === 0 ? RULESET : type, props, children, length2);
+  }
+  function comment(value, root, parent) {
+    return node(value, root, parent, COMMENT, from(char()), substr(value, 2, -2), 0);
+  }
+  function declaration2(value, root, parent, length2) {
+    return node(value, root, parent, DECLARATION, substr(value, 0, length2), substr(value, length2 + 1, -1), length2);
+  }
+
+  // ../../teiler/node_modules/stylis/src/Prefixer.js
+  function prefix(value, length2, children) {
+    switch (hash(value, length2)) {
+      case 5103:
+        return WEBKIT + "print-" + value + value;
+      case 5737:
+      case 4201:
+      case 3177:
+      case 3433:
+      case 1641:
+      case 4457:
+      case 2921:
+      case 5572:
+      case 6356:
+      case 5844:
+      case 3191:
+      case 6645:
+      case 3005:
+      case 6391:
+      case 5879:
+      case 5623:
+      case 6135:
+      case 4599:
+      case 4855:
+      case 4215:
+      case 6389:
+      case 5109:
+      case 5365:
+      case 5621:
+      case 3829:
+        return WEBKIT + value + value;
+      case 4789:
+        return MOZ + value + value;
+      case 5349:
+      case 4246:
+      case 4810:
+      case 6968:
+      case 2756:
+        return WEBKIT + value + MOZ + value + MS + value + value;
+      case 5936:
+        switch (charat(value, length2 + 11)) {
+          case 114:
+            return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb") + value;
+          case 108:
+            return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb-rl") + value;
+          case 45:
+            return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "lr") + value;
+        }
+      case 6828:
+      case 4268:
+      case 2903:
+        return WEBKIT + value + MS + value + value;
+      case 6165:
+        return WEBKIT + value + MS + "flex-" + value + value;
+      case 5187:
+        return WEBKIT + value + replace(value, /(\w+).+(:[^]+)/, WEBKIT + "box-$1$2" + MS + "flex-$1$2") + value;
+      case 5443:
+        return WEBKIT + value + MS + "flex-item-" + replace(value, /flex-|-self/g, "") + (!match(value, /flex-|baseline/) ? MS + "grid-row-" + replace(value, /flex-|-self/g, "") : "") + value;
+      case 4675:
+        return WEBKIT + value + MS + "flex-line-pack" + replace(value, /align-content|flex-|-self/g, "") + value;
+      case 5548:
+        return WEBKIT + value + MS + replace(value, "shrink", "negative") + value;
+      case 5292:
+        return WEBKIT + value + MS + replace(value, "basis", "preferred-size") + value;
+      case 6060:
+        return WEBKIT + "box-" + replace(value, "-grow", "") + WEBKIT + value + MS + replace(value, "grow", "positive") + value;
+      case 4554:
+        return WEBKIT + replace(value, /([^-])(transform)/g, "$1" + WEBKIT + "$2") + value;
+      case 6187:
+        return replace(replace(replace(value, /(zoom-|grab)/, WEBKIT + "$1"), /(image-set)/, WEBKIT + "$1"), value, "") + value;
+      case 5495:
+      case 3959:
+        return replace(value, /(image-set\([^]*)/, WEBKIT + "$1$`$1");
+      case 4968:
+        return replace(replace(value, /(.+:)(flex-)?(.*)/, WEBKIT + "box-pack:$3" + MS + "flex-pack:$3"), /s.+-b[^;]+/, "justify") + WEBKIT + value + value;
+      case 4200:
+        if (!match(value, /flex-|baseline/))
+          return MS + "grid-column-align" + substr(value, length2) + value;
+        break;
+      case 2592:
+      case 3360:
+        return MS + replace(value, "template-", "") + value;
+      case 4384:
+      case 3616:
+        if (children && children.some(function(element, index) {
+          return length2 = index, match(element.props, /grid-\w+-end/);
+        })) {
+          return ~indexof(value + (children = children[length2].value), "span") ? value : MS + replace(value, "-start", "") + value + MS + "grid-row-span:" + (~indexof(children, "span") ? match(children, /\d+/) : +match(children, /\d+/) - +match(value, /\d+/)) + ";";
+        }
+        return MS + replace(value, "-start", "") + value;
+      case 4896:
+      case 4128:
+        return children && children.some(function(element) {
+          return match(element.props, /grid-\w+-start/);
+        }) ? value : MS + replace(replace(value, "-end", "-span"), "span ", "") + value;
+      case 4095:
+      case 3583:
+      case 4068:
+      case 2532:
+        return replace(value, /(.+)-inline(.+)/, WEBKIT + "$1$2") + value;
+      case 8116:
+      case 7059:
+      case 5753:
+      case 5535:
+      case 5445:
+      case 5701:
+      case 4933:
+      case 4677:
+      case 5533:
+      case 5789:
+      case 5021:
+      case 4765:
+        if (strlen(value) - 1 - length2 > 6)
+          switch (charat(value, length2 + 1)) {
+            case 109:
+              if (charat(value, length2 + 4) !== 45)
+                break;
+            case 102:
+              return replace(value, /(.+:)(.+)-([^]+)/, "$1" + WEBKIT + "$2-$3$1" + MOZ + (charat(value, length2 + 3) == 108 ? "$3" : "$2-$3")) + value;
+            case 115:
+              return ~indexof(value, "stretch") ? prefix(replace(value, "stretch", "fill-available"), length2, children) + value : value;
+          }
+        break;
+      case 5152:
+      case 5920:
+        return replace(value, /(.+?):(\d+)(\s*\/\s*(span)?\s*(\d+))?(.*)/, function(_, a, b, c, d, e, f) {
+          return MS + a + ":" + b + f + (c ? MS + a + "-span:" + (d ? e : +e - +b) + f : "") + value;
+        });
+      case 4949:
+        if (charat(value, length2 + 6) === 121)
+          return replace(value, ":", ":" + WEBKIT) + value;
+        break;
+      case 6444:
+        switch (charat(value, charat(value, 14) === 45 ? 18 : 11)) {
+          case 120:
+            return replace(value, /(.+:)([^;\s!]+)(;|(\s+)?!.+)?/, "$1" + WEBKIT + (charat(value, 14) === 45 ? "inline-" : "") + "box$3$1" + WEBKIT + "$2$3$1" + MS + "$2box$3") + value;
+          case 100:
+            return replace(value, ":", ":" + MS) + value;
+        }
+        break;
+      case 5719:
+      case 2647:
+      case 2135:
+      case 3927:
+      case 2391:
+        return replace(value, "scroll-", "scroll-snap-") + value;
+    }
+    return value;
+  }
+
+  // ../../teiler/node_modules/stylis/src/Serializer.js
+  function serialize(children, callback) {
+    var output = "";
+    var length2 = sizeof(children);
+    for (var i = 0; i < length2; i++)
+      output += callback(children[i], i, children, callback) || "";
+    return output;
+  }
+  function stringify(element, index, children, callback) {
+    switch (element.type) {
+      case LAYER:
+        if (element.children.length)
+          break;
+      case IMPORT:
+      case DECLARATION:
+        return element.return = element.return || element.value;
+      case COMMENT:
+        return "";
+      case KEYFRAMES:
+        return element.return = element.value + "{" + serialize(element.children, callback) + "}";
+      case RULESET:
+        element.value = element.props.join(",");
+    }
+    return strlen(children = serialize(element.children, callback)) ? element.return = element.value + "{" + children + "}" : "";
+  }
+
+  // ../../teiler/node_modules/stylis/src/Middleware.js
+  function middleware(collection) {
+    var length2 = sizeof(collection);
+    return function(element, index, children, callback) {
+      var output = "";
+      for (var i = 0; i < length2; i++)
+        output += collection[i](element, index, children, callback) || "";
+      return output;
+    };
+  }
+  function rulesheet(callback) {
+    return function(element) {
+      if (!element.root) {
+        if (element = element.return)
+          callback(element);
+      }
+    };
+  }
+  function prefixer(element, index, children, callback) {
+    if (element.length > -1) {
+      if (!element.return)
+        switch (element.type) {
+          case DECLARATION:
+            element.return = prefix(element.value, element.length, children);
+            return;
+          case KEYFRAMES:
+            return serialize([copy(element, { value: replace(element.value, "@", "@" + WEBKIT) })], callback);
+          case RULESET:
+            if (element.length)
+              return combine(element.props, function(value) {
+                switch (match(value, /(::plac\w+|:read-\w+)/)) {
+                  case ":read-only":
+                  case ":read-write":
+                    return serialize([copy(element, { props: [replace(value, /:(read-\w+)/, ":" + MOZ + "$1")] })], callback);
+                  case "::placeholder":
+                    return serialize([
+                      copy(element, { props: [replace(value, /:(plac\w+)/, ":" + WEBKIT + "input-$1")] }),
+                      copy(element, { props: [replace(value, /:(plac\w+)/, ":" + MOZ + "$1")] }),
+                      copy(element, { props: [replace(value, /:(plac\w+)/, MS + "input-$1")] })
+                    ], callback);
+                }
+                return "";
+              });
+        }
+    }
+  }
+
+  // ../../teiler/packages/core/src/css.ts
+  function stylis(sheet, css) {
+    serialize(
+      compile(css),
+      middleware([
+        stringify,
+        prefixer,
+        rulesheet((rule) => {
+          sheet.insert(rule);
+        })
+      ])
+    );
+  }
+
+  // ../../teiler/packages/core/src/sheet.ts
+  function createStyleSheetElement(container) {
+    const style = document.createElement("style");
+    container.appendChild(style);
+    return style;
+  }
+  function createStyleSheetAdapter({ container: _container }) {
+    const isSSR = typeof document === "undefined";
+    const container = isSSR ? void 0 : _container || document.head;
+    const style = isSSR ? null : createStyleSheetElement(container);
+    return new Proxy(
+      [],
+      {
+        get(object, index) {
+          return object[index];
+        },
+        set(object, property, styles) {
+          if (property !== "length") {
+            if (isSSR === false) {
+              style.sheet.insertRule(styles, style.sheet.cssRules.length);
+            }
+            object[property] = styles;
+            return true;
+          }
+          return object[property] === styles;
+        }
+      }
+    );
+  }
+  function createStyleSheet(_options) {
+    const options = {
+      ...{
+        //
+      },
+      ..._options
+    };
+    const styleSheetAdapter = createStyleSheetAdapter({ container: options.container });
+    return {
+      insert: (styles) => styleSheetAdapter.push(styles),
+      dump: () => {
+        return styleSheetAdapter.join(" ");
+      }
+    };
+  }
+
+  // ../../teiler/packages/core/src/hash.ts
+  function hash2(str) {
+    let l = str.length;
+    let h = l;
+    let i = 0;
+    let k;
+    while (l >= 4) {
+      k = str.charCodeAt(i) & 255 | (str.charCodeAt(++i) & 255) << 8 | (str.charCodeAt(++i) & 255) << 16 | (str.charCodeAt(++i) & 255) << 24;
+      k = (k & 65535) * 1540483477 + (((k >>> 16) * 1540483477 & 65535) << 16);
+      k ^= k >>> 24;
+      k = (k & 65535) * 1540483477 + (((k >>> 16) * 1540483477 & 65535) << 16);
+      h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16) ^ k;
+      l -= 4;
+      ++i;
+    }
+    switch (l) {
+      case 3:
+        h ^= (str.charCodeAt(i + 2) & 255) << 16;
+      case 2:
+        h ^= (str.charCodeAt(i + 1) & 255) << 8;
+      case 1:
+        h ^= str.charCodeAt(i) & 255;
+        h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16);
+    }
+    h ^= h >>> 13;
+    h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16);
+    h ^= h >>> 15;
+    return (h >>> 0).toString(36);
+  }
+
+  // ../../teiler/packages/core/src/index.ts
+  var isFalsish = (chunk) => chunk === void 0 || chunk === null || chunk === false || chunk === "";
+  function compile2(styles, props) {
+    return styles.map(([strings, expressions]) => {
+      return strings.reduce((acc, strings2, index) => {
+        acc = [...acc, strings2];
+        const expression = expressions.at(index);
+        if (expression) {
+          const result = expression(props);
+          if (isFalsish(result) === false) {
+            acc = [...acc, result];
+          }
+        }
+        return acc;
+      }, []).join("");
+    });
+  }
+  function styled(createComponent2, stringOrBinded, ...expressions) {
+    if (typeof stringOrBinded === "function") {
+      const binded = stringOrBinded;
+      return (strings, ...expressions2) => {
+        const style = [Array.from(strings), expressions2];
+        return createComponent2([...binded.styles, style]);
+      };
+    } else {
+      const strings = stringOrBinded;
+      const style = [Array.from(strings), expressions];
+      return createComponent2([style]);
+    }
+  }
+  function hire(options) {
+    const sheet = options?.sheet || createStyleSheet({});
+    return {
+      sheet,
+      component: (styles, props) => {
+        return compile2(styles, props).map((css) => {
+          const id = hash2(css);
+          const selector = "teiler-" + id;
+          stylis(sheet, `.${selector} { ${css} }`);
+          return selector;
+        });
+      },
+      global: (styles, props) => {
+        return compile2(styles, props).map((css) => {
+          stylis(sheet, css);
+        });
+      }
+    };
+  }
+  var src_default = styled;
+
+  // src/SheetContext.ts
+  var SheetContext = createContext(void 0);
+  var useSheetContext = () => {
+    return useContext(SheetContext);
+  };
+
+  // src/teiler.ts
+  var createComponent = (compile3, tag, styles) => {
+    return {
+      view(vnode) {
+        const sheetContext = useSheetContext();
+        console.log("sheetContext", sheetContext);
+        return (0, import_mithril4.default)(tag, {
+          className: compile3(styles, vnode.attrs).join(" "),
+          ...vnode.attrs
+        }, vnode.children);
+      }
+    };
+  };
+  function construct(tag, compile3) {
+    const binded = createComponent.bind(null, compile3, tag);
+    return (stringOrBinded, ...expressions) => {
+      return src_default(binded, stringOrBinded, ...expressions);
+    };
+  }
+  function hireMithril(options) {
+    const hired = hire(options);
+    const component = construct("div", hired.component);
+    const global2 = construct(null, hired.global);
+    return {
+      sheet: hired.sheet,
+      component,
+      global: global2
+    };
+  }
+  var teiler_default = hireMithril;
+
   // src/component.ts
+  var teiler = teiler_default({});
+  var test = teiler.component`
+  color: ${({ test: test2 }) => test2 % 2 === 0 ? "red" : "blue"};
+`;
   var ComponentWithState = (vnode) => {
-    var count = store_default(1);
-    var double = count.value.map((value) => value * 2);
+    const count = store_default(1);
+    const double = count.value.map((value) => value * 2);
     return {
       oninit: (vnode2) => {
         console.log("init a closure component");
       },
       view: (vnode2) => {
-        return (0, import_mithril2.default)(
+        return (0, import_mithril5.default)(
           "div",
-          (0, import_mithril2.default)("p", "Test: " + count.value() + " | " + double()),
-          (0, import_mithril2.default)(
+          (0, import_mithril5.default)(
+            test,
+            {
+              test: count.value()
+            },
+            [
+              (0, import_mithril5.default)(
+                "p",
+                {
+                  onclick: () => console.log("click", teiler.sheet.dump())
+                },
+                "abc"
+              )
+            ]
+          ),
+          (0, import_mithril5.default)("p", "Test: " + count.value() + " | " + double()),
+          (0, import_mithril5.default)(
             "button",
             {
               onclick: function() {
@@ -2274,6 +3033,6 @@
   // src/index.ts
   addEventListener(
     "DOMContentLoaded",
-    () => import_mithril3.default.mount(window.document.body, component_default)
+    () => import_mithril6.default.mount(window.document.body, component_default)
   );
 })();
