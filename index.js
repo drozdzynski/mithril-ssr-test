@@ -13,9 +13,8 @@ export default {
     }
 
     const sheet = createStyleSheet();
-    const rootNode = m(SheetContextProvider({ sheet }), m(baseView(component)));
+    const rootNode = m(SheetContextProvider({ sheet }), m(baseView(component, sheet)));
     const html = await toHTML(rootNode);
-    console.log('sheet', sheet.dump())
 
     return new Response(html, {
       headers: {

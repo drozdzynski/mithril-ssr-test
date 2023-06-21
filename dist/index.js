@@ -1296,8 +1296,8 @@
           }
         }
         redraw.sync = sync;
-        function mount(root, component) {
-          if (component != null && component.view == null && typeof component !== "function") {
+        function mount(root, component2) {
+          if (component2 != null && component2.view == null && typeof component2 !== "function") {
             throw new TypeError("m.mount expects a component, not a vnode.");
           }
           var index = subscriptions.indexOf(root);
@@ -1307,9 +1307,9 @@
               offset -= 2;
             render(root, []);
           }
-          if (component != null) {
-            subscriptions.push(root, component);
-            render(root, Vnode(component), redraw);
+          if (component2 != null) {
+            subscriptions.push(root, component2);
+            render(root, Vnode(component2), redraw);
           }
         }
         return { mount, redraw };
@@ -1786,11 +1786,11 @@
       var assign2 = require_assign();
       var censor = require_censor();
       var sentinel = {};
-      function decodeURIComponentSave(component) {
+      function decodeURIComponentSave(component2) {
         try {
-          return decodeURIComponent(component);
+          return decodeURIComponent(component2);
         } catch (e) {
-          return component;
+          return component2;
         }
       }
       module.exports = function($window, mountRedraw) {
@@ -1800,7 +1800,7 @@
         var ready = false;
         var state = 0;
         var compiled, fallbackRoute;
-        var currentResolver = sentinel, component, attrs, currentPath, lastUpdate;
+        var currentResolver = sentinel, component2, attrs, currentPath, lastUpdate;
         var RouterRoot = {
           onbeforeupdate: function() {
             state = state ? 2 : 1;
@@ -1813,7 +1813,7 @@
           view: function() {
             if (!state || sentinel === currentResolver)
               return;
-            var vnode = [Vnode(component, attrs.key, attrs)];
+            var vnode = [Vnode(component2, attrs.key, attrs)];
             if (currentResolver)
               vnode = currentResolver.render(vnode[0]);
             return vnode;
@@ -1850,7 +1850,7 @@
                     return;
                   if (comp === SKIP)
                     return loop(i + 1);
-                  component = comp != null && (typeof comp.view === "function" || typeof comp === "function") ? comp : "div";
+                  component2 = comp != null && (typeof comp.view === "function" || typeof comp === "function") ? comp : "div";
                   attrs = data.params, currentPath = path, lastUpdate = null;
                   currentResolver = payload.render ? payload : null;
                   if (state === 2)
@@ -2246,35 +2246,6 @@
 
   // src/teiler.ts
   var import_mithril4 = __toESM(require_mithril());
-
-  // src/SheetContext.ts
-  var import_mithril3 = __toESM(require_mithril());
-
-  // src/createContext.ts
-  var import_mithril2 = __toESM(require_mithril());
-  var useContext = (context) => context.state();
-  function createContext(defaultValue) {
-    let providedContext = defaultValue;
-    const state = () => providedContext;
-    const Provider = () => {
-      return {
-        view: (vnode) => {
-          providedContext = vnode.attrs;
-          return [
-            vnode.children,
-            (0, import_mithril2.default)({
-              view: () => {
-              }
-            })
-          ];
-        }
-      };
-    };
-    return {
-      state,
-      Provider
-    };
-  }
 
   // ../../teiler/node_modules/stylis/src/Enum.js
   var MS = "-ms-";
@@ -2709,7 +2680,7 @@
         break;
       case 5152:
       case 5920:
-        return replace(value, /(.+?):(\d+)(\s*\/\s*(span)?\s*(\d+))?(.*)/, function(_, a, b, c, d, e, f) {
+        return replace(value, /(.+?):(\d+)(\s*\/\s*(span)?\s*(\d+))?(.*)/, function(_2, a, b, c, d, e, f) {
           return MS + a + ":" + b + f + (c ? MS + a + "-span:" + (d ? e : +e - +b) + f : "") + value;
         });
       case 4949:
@@ -2808,80 +2779,37 @@
   }
 
   // ../../teiler/packages/core/src/css.ts
-  function stylis(sheet, css) {
+  function stylis(css) {
+    const results = [];
     serialize(
       compile(css),
       middleware([
         stringify,
         prefixer,
         rulesheet((rule) => {
-          sheet.insert(rule);
+          results.push(rule);
         })
       ])
     );
-  }
-
-  // ../../teiler/packages/core/src/sheet.ts
-  function createStyleSheetElement(container) {
-    const style = document.createElement("style");
-    container.appendChild(style);
-    return style;
-  }
-  function createStyleSheetAdapter({ container: _container }) {
-    const isSSR = typeof document === "undefined";
-    const container = isSSR ? void 0 : _container || document.head;
-    const style = isSSR ? null : createStyleSheetElement(container);
-    return new Proxy(
-      [],
-      {
-        get(object, index) {
-          return object[index];
-        },
-        set(object, property, styles) {
-          if (property !== "length") {
-            if (isSSR === false) {
-              style.sheet.insertRule(styles, style.sheet.cssRules.length);
-            }
-            object[property] = styles;
-            return true;
-          }
-          return object[property] === styles;
-        }
-      }
-    );
-  }
-  function createStyleSheet(_options) {
-    const options = {
-      ...{
-        //
-      },
-      ..._options
-    };
-    const styleSheetAdapter = createStyleSheetAdapter({ container: options.container });
-    return {
-      insert: (styles) => styleSheetAdapter.push(styles),
-      dump: () => {
-        return styleSheetAdapter.join(" ");
-      }
-    };
+    return results;
   }
 
   // ../../teiler/packages/core/src/hash.ts
   function hash2(str) {
-    let l = str.length;
-    let h = l;
+    let l2 = str.length;
+    let h = l2;
     let i = 0;
     let k;
-    while (l >= 4) {
+    while (l2 >= 4) {
       k = str.charCodeAt(i) & 255 | (str.charCodeAt(++i) & 255) << 8 | (str.charCodeAt(++i) & 255) << 16 | (str.charCodeAt(++i) & 255) << 24;
       k = (k & 65535) * 1540483477 + (((k >>> 16) * 1540483477 & 65535) << 16);
       k ^= k >>> 24;
       k = (k & 65535) * 1540483477 + (((k >>> 16) * 1540483477 & 65535) << 16);
       h = (h & 65535) * 1540483477 + (((h >>> 16) * 1540483477 & 65535) << 16) ^ k;
-      l -= 4;
+      l2 -= 4;
       ++i;
     }
-    switch (l) {
+    switch (l2) {
       case 3:
         h ^= (str.charCodeAt(i + 2) & 255) << 16;
       case 2:
@@ -2913,6 +2841,10 @@
       }, []).join("");
     });
   }
+  var unifier = 0;
+  function generateComponentId() {
+    return hash2("sc" + unifier++);
+  }
   function styled(createComponent2, stringOrBinded, ...expressions) {
     if (typeof stringOrBinded === "function") {
       const binded = stringOrBinded;
@@ -2921,31 +2853,106 @@
         return createComponent2([...binded.styles, style]);
       };
     } else {
+      console.log("generate component", generateComponentId());
       const strings = stringOrBinded;
       const style = [Array.from(strings), expressions];
       return createComponent2([style]);
     }
   }
-  function hire(options) {
-    const sheet = options?.sheet || createStyleSheet({});
-    return {
-      sheet,
-      component: (styles, props) => {
-        return compile2(styles, props).map((css) => {
-          const id = hash2(css);
-          const selector = "teiler-" + id;
-          stylis(sheet, `.${selector} { ${css} }`);
-          return selector;
-        });
-      },
-      global: (styles, props) => {
-        return compile2(styles, props).map((css) => {
-          stylis(sheet, css);
-        });
-      }
-    };
+  function component(sheet, styles, props) {
+    return compile2(styles, props).map((css) => {
+      const id = hash2(css);
+      const selector = "teiler-" + id;
+      const result = stylis(`.${selector} { ${css} }`).join(" ");
+      sheet.insert(id, result);
+      return selector;
+    });
+  }
+  function global2(sheet, styles, props) {
+    return compile2(styles, props).map((css) => {
+      const result = stylis(css).join(" ");
+      const id = hash2(result);
+      sheet.insert(id, result);
+    });
   }
   var src_default = styled;
+
+  // ../../teiler/packages/core/dist/teiler-core.esm.js
+  var l = String.fromCharCode;
+  function Y(e) {
+    const r = function(e2) {
+      const r2 = document.head, n2 = e2 || r2, t = document.createElement("style");
+      return t.setAttribute("data-teiler", ""), n2.appendChild(t), t;
+    }(e), n = /* @__PURE__ */ new Map();
+    return console.log("inserted", n), { insertRule: function(e2, t) {
+      const c = document.createTextNode(t);
+      return false === n.has(e2) && (n.set(e2, c), r.appendChild(c)), n.size;
+    }, deleteRule: function(e2) {
+      r.removeChild(n.get(e2));
+    }, getRule: function(e2) {
+      var r2;
+      return (null == (r2 = n.get(e2)) ? void 0 : r2.textContent) || null;
+    }, getAllRules: function() {
+      return Array.from(n.values()).reduce((e2, r2) => e2 + " " + r2.textContent, "");
+    } };
+  }
+  var Z = Object.defineProperty;
+  var _ = Object.getOwnPropertySymbols;
+  var ee = Object.prototype.hasOwnProperty;
+  var re = Object.prototype.propertyIsEnumerable;
+  var ne = (e, r, n) => r in e ? Z(e, r, { enumerable: true, configurable: true, writable: true, value: n }) : e[r] = n;
+  var te = (e, r) => {
+    for (var n in r || (r = {}))
+      ee.call(r, n) && ne(e, n, r[n]);
+    if (_)
+      for (var n of _(r))
+        re.call(r, n) && ne(e, n, r[n]);
+    return e;
+  };
+  function ce(e) {
+    const r = te(te({}, {}), e), n = "undefined" == typeof document ? function() {
+      const e2 = {};
+      return { insertRule: function(r2, n2) {
+        return e2[r2] = n2, Object.keys(e2).length;
+      }, deleteRule: function(r2) {
+        delete e2[r2];
+      }, getRule: function(r2) {
+        return e2[r2] || null;
+      }, getAllRules: function() {
+        return Object.values(e2).join(" ");
+      } };
+    }() : Y(r.container);
+    return { insert: (e2, r2) => n.insertRule(e2, r2), dump: () => n.getAllRules() };
+  }
+
+  // src/SheetContext.ts
+  var import_mithril3 = __toESM(require_mithril());
+
+  // src/createContext.ts
+  var import_mithril2 = __toESM(require_mithril());
+  var useContext = (context) => context.state();
+  function createContext(defaultValue) {
+    let providedContext = defaultValue;
+    const state = () => providedContext;
+    const Provider = () => {
+      return {
+        view: (vnode) => {
+          providedContext = vnode.attrs;
+          return [
+            vnode.children,
+            (0, import_mithril2.default)({
+              view: () => {
+              }
+            })
+          ];
+        }
+      };
+    };
+    return {
+      state,
+      Provider
+    };
+  }
 
   // src/SheetContext.ts
   var SheetContext = createContext(void 0);
@@ -2953,14 +2960,19 @@
     return useContext(SheetContext);
   };
 
+  // src/sheet.ts
+  var styleSheet = ce({});
+  function getStyleSheet() {
+    return useSheetContext() || styleSheet;
+  }
+
   // src/teiler.ts
   var createComponent = (compile3, tag, styles) => {
     return {
       view(vnode) {
-        const sheetContext = useSheetContext();
-        console.log("sheetContext", sheetContext);
+        const sheet = getStyleSheet();
         return (0, import_mithril4.default)(tag, {
-          className: compile3(styles, vnode.attrs).join(" "),
+          className: compile3(sheet, styles, vnode.attrs).join(" "),
           ...vnode.attrs
         }, vnode.children);
       }
@@ -2972,21 +2984,12 @@
       return src_default(binded, stringOrBinded, ...expressions);
     };
   }
-  function hireMithril(options) {
-    const hired = hire(options);
-    const component = construct("div", hired.component);
-    const global2 = construct(null, hired.global);
-    return {
-      sheet: hired.sheet,
-      component,
-      global: global2
-    };
-  }
-  var teiler_default = hireMithril;
+  var mithrilComponent = construct("div", component);
+  var mithrilGlobal = construct(null, global2);
+  var teiler_default = mithrilComponent;
 
   // src/component.ts
-  var teiler = teiler_default({});
-  var test = teiler.component`
+  var test = teiler_default`
   color: ${({ test: test2 }) => test2 % 2 === 0 ? "red" : "blue"};
 `;
   var ComponentWithState = (vnode) => {
@@ -3008,7 +3011,7 @@
               (0, import_mithril5.default)(
                 "p",
                 {
-                  onclick: () => console.log("click", teiler.sheet.dump())
+                  // onclick: () => console.log('click', teiler.sheet.dump()),
                 },
                 "abc"
               )

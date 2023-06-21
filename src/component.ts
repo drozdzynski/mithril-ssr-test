@@ -1,11 +1,8 @@
 import m from "mithril";
 import store from "./store";
-import hire from "./teiler";
-import { useSheetContext } from "./SheetContext";
+import component from "./teiler";
 
-const teiler = hire({});
-
-const test = teiler.component<{test: number}>`
+const test = component<{test: number}>`
   color: ${({test}) => test % 2 === 0 ? 'red' : 'blue'};
 `
 
@@ -28,7 +25,7 @@ const ComponentWithState: m.ClosureComponent<{test: string}> = vnode => {
           m(
             "p", 
             {
-              onclick: () => console.log('click', teiler.sheet.dump()),
+              // onclick: () => console.log('click', teiler.sheet.dump()),
             }, 
             "abc"
           )
@@ -49,4 +46,3 @@ const ComponentWithState: m.ClosureComponent<{test: string}> = vnode => {
 }
 
 export default ComponentWithState
-export { teiler }
